@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
+      - name: Install Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Install Java 8
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: 8
-      - name: Install Node 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Install latest stable chrome version 119.x 
+      - name: Install latest stable chrome version 119.x
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
