@@ -19,6 +19,6 @@ jobs:
           java-version: 8
       # Run: mvn test
       - name: Run tests with maven
-        working-directory: CucumberPagObjects
+        working-directory: src
         run: mvn clean test
 # What steps within each job
