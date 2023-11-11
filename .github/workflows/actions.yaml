@@ -28,7 +28,7 @@ jobs:
       - name: Install latest stable chrome 
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: stable
+          chrome-version: 119.0.6045.105
       # Run: mvn test
       #- name: Run tests with maven
       #  run: mvn clean test
