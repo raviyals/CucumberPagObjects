@@ -9,10 +9,6 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ 'ubuntu-latest' ]
-        node-version: [ '16.x' ]
     steps:
       - name: Check out repository
         uses: actions/checkout@master
@@ -22,9 +18,9 @@ jobs:
           distribution: 'zulu'
           java-version: 8
       - name: Install Node 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
       - name: Install latest stable chrome version 119.x 
         uses: browser-actions/setup-chrome@v1
         with:
