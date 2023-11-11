@@ -14,26 +14,22 @@ jobs:
         os: [ 'ubuntu-latest' ]
         node-version: [ '16.x' ]
     steps:
-      - name: My first step - check out repository
-        uses: actions/checkout@v2
-       #install Java
-      - uses: actions/setup-java@v2
+      - name: Check out repository
+        uses: actions/checkout@master
+      - name: Install Java 8
+        uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: 8
-       #install Node 
-      - uses: actions/setup-node@v3
+      - name: Install Node 16
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-        #install specific version of chrome 
+      - name: Install latest stable chrome 
       - uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
-          id: setup-chrome
-      - run: |
-          echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
-          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          id: chrome-version
       # Run: mvn test
-      - name: Run tests with maven
-        run: mvn clean test
-# What steps within each job
+      #- name: Run tests with maven
+      #  run: mvn clean test
