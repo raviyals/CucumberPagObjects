@@ -35,7 +35,7 @@ jobs:
       - name: Set test run start time
         run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
       - name: Run tests with maven
-        run: mvn clean test
+        run: mvn test
       #set end time
       - name: Calculate test results data
         working-directory: src/test/resources
