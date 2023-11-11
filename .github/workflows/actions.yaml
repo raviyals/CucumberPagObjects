@@ -14,6 +14,9 @@ jobs:
         os: [ 'ubuntu-latest' ]
         node-version: [ '16.x' ]
     steps:
+      #set start time
+      - name: Set test run start time
+        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
       - name: Check out repository
         uses: actions/checkout@master
       - name: Install Java 8
@@ -31,3 +34,7 @@ jobs:
           chrome-version: stable
       - name: Run tests with maven
         run: mvn clean test
+      - name: Calculate build and test run duration
+        if: always()
+        run: expr $(date +%s)  - ${START_TIME}
+      #set end time
