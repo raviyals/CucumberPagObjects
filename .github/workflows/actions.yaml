@@ -25,10 +25,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install latest stable chrome 
+      - name: Install latest stable chrome version 119.x 
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: 119.0.6045.105
-      # Run: mvn test
-      #- name: Run tests with maven
-      #  run: mvn clean test
+          chrome-version: stable
+      - name: Run tests with maven
+        run: mvn clean test
