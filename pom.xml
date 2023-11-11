@@ -6,6 +6,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.plugin.validation>BRIEF</maven.plugin.validation>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-testng -->
@@ -62,11 +63,9 @@
 	  			<artifactId>maven-surefire-plugin</artifactId>
 	  			<version>2.22.0</version>
 	  			<configuration>
-	  				<testFailureIgnore>false</testFailureIgnore>
-	  				<suiteXmlFiles>
-	  					<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-	  				</suiteXmlFiles>
-	  			</configuration>
+	  				<parallel>methods</parallel>
+					<useUnlimitedThreads>true</useUnlimitedThreads>
+				</configuration>
 	  		</plugin>
 	  	</plugins>
 	  </build>

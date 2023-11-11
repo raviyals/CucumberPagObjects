@@ -18,15 +18,13 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		glue={"steps"},
 		monochrome=true,
 		tags={"@Search-Cars,@Used-Search-Cars"},
-		plugin= {"json:target/RunCuke/cucumber.json","pretty","html:target/RunCuke/cucumber.html","com.cucumber.listener.ExtentCucumberFormatter"}
+		plugin= {"json:target/RunCukeTest/cucumber.json","pretty","html:target/RunCukeTest/cucumber.html","com.cucumber.listener.ExtentCucumberFormatter"}
 		)
 public class RunCukeTest extends AbstractTestNGCucumberTests{
 
 	@BeforeClass
 	public static void setup()
 	{
-		
-		
 		// Initiates the extent report and generates the output in the output/Run_<unique timestamp>/report.html file by default.
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_hhmmss");
 		Date curDate = new Date();
