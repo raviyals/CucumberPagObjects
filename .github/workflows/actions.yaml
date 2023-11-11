@@ -29,7 +29,6 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
-          id: chrome-version
       # Run: mvn test
       #- name: Run tests with maven
       #  run: mvn clean test
