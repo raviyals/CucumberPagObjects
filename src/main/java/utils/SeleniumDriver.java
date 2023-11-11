@@ -79,6 +79,10 @@ public class SeleniumDriver {
 		chromeOptions.addArguments("--log-level=3");
 		chromeOptions.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 
+		if (isLinux())
+		{
+			chromeOptions.setBinary("/opt/hostedtoolcache/chromium/stable/x64/chrome");
+		}
 		driver = new ChromeDriver(chromeOptions);
 
 		driver.manage().window().maximize();
