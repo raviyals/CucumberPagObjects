@@ -17,7 +17,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		features={"src/test/resources/features"},
 		glue={"steps"},
 		monochrome=true,
-		tags={"@Search-Cars"},
+		tags={"@Search-Cars,@Used-Search-Cars"},
 		plugin= {"json:target/RunCuke/cucumber.json","pretty","html:target/RunCuke/cucumber.html","com.cucumber.listener.ExtentCucumberFormatter"}
 		)
 public class RunCuke extends AbstractTestNGCucumberTests{
@@ -37,10 +37,10 @@ public class RunCuke extends AbstractTestNGCucumberTests{
 		
 		//Loads the extent config xml to customize on the report.
 		ExtentCucumberFormatter.loadConfig(new File("src/test/resources/extent-config.xml"));
-		
+
 		//User can add the system information as follows
 		ExtentCucumberFormatter.addSystemInfo("Browser Name", "FireFox");
-		ExtentCucumberFormatter.addSystemInfo("Browser Version", "v69.0.1");
+		ExtentCucumberFormatter.addSystemInfo("Browser Version", "v119.0.1");
 		ExtentCucumberFormatter.addSystemInfo("Selenium Version", "v3.149.59");
 	
         // Also you can add system information using a hash map

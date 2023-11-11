@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,7 +19,10 @@ public class SeleniumDriver {
 	public final static int PAGE_LOAD_TIMEOUT = 50;
 	
 	private SeleniumDriver() {
-		System.setProperty("webdriver.gecko.driver","C:\\Ravy\\Development\\lib\\executables\\geckodriver.exe"); 
+		System.setProperty("webdriver.gecko.driver","C:\\Ravy\\Development\\lib\\executables\\geckodriver.exe");
+		System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
+		java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
+
 		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		
@@ -26,6 +30,7 @@ public class SeleniumDriver {
 		
 		driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+
 	}
 	
 	public static void openPage(String url) {

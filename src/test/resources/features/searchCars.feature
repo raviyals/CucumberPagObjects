@@ -18,4 +18,4 @@ Feature: Acceptance testing to validate Search cars page is working fine.
     And select price as "$10,000" from Price dropdown
     And click on Find_My_Next_Car button
     Then I should see list of searched cars
-    And the page title should be "Bmw 1 Series Under 10000 for Sale ACT | carsguide"
+    And the page title should be "Cheap BMW 1 Series Under 10,000 for Sale ACT | CarsGuide"
