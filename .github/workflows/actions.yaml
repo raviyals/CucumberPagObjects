@@ -10,5 +10,15 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: My first step - check out repository
+        uses: actions/checkout@v2
+       #install Java
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 8
+      # Run: mvn test
+      - name: Run tests with maven
+        working-directory: CucumberPagObjects
+        run: mvn clean test
 # What steps within each job

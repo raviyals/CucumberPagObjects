@@ -19,7 +19,8 @@ public class SeleniumDriver {
 	
 	//init WebDriver
 	private static WebDriver driver;
-	
+	private static final String OS_NAME = System.getProperty("os.name").toLowerCase();
+	private static final String OS_ARCH = System.getProperty("os.arch").toLowerCase();
 	public final static int TIMEOUT = 30;
 	public final static int PAGE_LOAD_TIMEOUT = 50;
 	
@@ -39,7 +40,37 @@ public class SeleniumDriver {
 
 		// Run Chrome with no logging in headless mode
 
-		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, System.getProperty("user.dir")+"\\src\\main\\resources\\chromedriver.exe");
+		String driverExtention = "";
+
+		System.out.println("os.name: " + OS_NAME);
+		System.out.println("os.arch: " + OS_ARCH);
+
+		if (isWindows()) {
+			System.out.println("This is Windows");
+			if (OS_ARCH.equals("x86"))
+			{
+				driverExtention = "\\src\\main\\resources\\chromedriver-win32\\chromedriver.exe";
+			}
+			else {
+				driverExtention = "\\src\\main\\resources\\chromedriver-win64\\chromedriver.exe";
+			}
+		} else if (isMac()) {
+			System.out.println("This is Mac");
+			if (OS_ARCH.contains("arm64"))
+			{
+				driverExtention = "/src/main/resources/chromedriver-mac-arm64/chromedriver";
+			}
+			else {
+				driverExtention = "/src/main/resources/chromedriver-mac-x64/chromedriver";
+			}
+		} else if (isLinux()) {
+			System.out.println("This is Linux");
+			driverExtention = "/src/main/resources/chromedriver-linux64/chromedriver";
+		} else {
+			System.out.println("Your OS is not support!!");
+		}
+
+		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, System.getProperty("user.dir")+driverExtention);
 		System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
 
 		ChromeOptions chromeOptions = new ChromeOptions();
@@ -78,5 +109,20 @@ public class SeleniumDriver {
 		}
 		seleniumDriver = null;
 	}
+
+	public static boolean isWindows() {
+		return (OS_NAME.indexOf("win") >= 0);
+	}
+
+	public static boolean isMac() {
+		return (OS_NAME.indexOf("mac") >= 0);
+	}
+
+	public static boolean isLinux() {
+		return (OS_NAME.indexOf("nix") >= 0
+				|| OS_NAME.indexOf("nux") >= 0
+				|| OS_NAME.indexOf("aix") > 0);
+	}
+
 }
 

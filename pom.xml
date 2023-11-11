@@ -65,6 +65,10 @@
 	  			<configuration>
 	  				<parallel>methods</parallel>
 					<useUnlimitedThreads>true</useUnlimitedThreads>
+					<testFailureIgnore>false</testFailureIgnore>
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
 				</configuration>
 	  		</plugin>
 	  	</plugins>
