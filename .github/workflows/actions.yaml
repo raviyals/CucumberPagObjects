@@ -9,6 +9,10 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+        node-version: [ '16.x' ]
     steps:
       - name: My first step - check out repository
         uses: actions/checkout@v2
@@ -17,6 +21,18 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 8
+       #install Node 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+        #install specific version of chrome 
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+          id: setup-chrome
+      - run: |
+          echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
       # Run: mvn test
       - name: Run tests with maven
         run: mvn clean test
