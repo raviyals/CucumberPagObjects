@@ -11,6 +11,10 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+
+    env:
+      BUILDEVENT_FILE: './buildevents.txt'  #This is the root of out repository
+
     steps:
       - name: Get Build event data
         uses: kvrhdn/gha-buildevents@v1
@@ -18,6 +22,9 @@ jobs:
           apiKey: ${{ secrets.BUILDEVENTS_APIKEY }}
           dataset: CucumberPagObjects-build-pipeline
           job-status: ${{ job.status }}
+      #set start time
+      - name: Set build and test run start time
+        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Install Node 16
@@ -35,19 +42,23 @@ jobs:
           chrome-version: stable
       - name: Run clean build with maven
         run: mvn clean compile
-      #set start time
-      - name: Set test run start time
-        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
+      #introduce start of span
+      - name: Telemetry start - Maven tests
+        if: always()
+        run: |
+          echo "STEP_START=$(date +%s)" >> $GITHUB_ENV
+          echo "STEP_ID='run-maven-tests'" >> $GITHUB_ENV
       - name: Run tests with maven
         run: mvn test
-      #set end time
-      - name: Calculate test results data
+      #Finalize span
+      - name: Telemetry - Collect build and test results data
         working-directory: src/test/resources
         env:
           PUSHGATEWAY_URL: ${{ secrets.PUSHGATEWAY_URL }}
+          BUILDEVENT_FILE: ../../../${{ env.BUILDEVENT_FILE}}
         if: always()
         run: |
           echo "TOTAL_TEST_DURATION=$(expr $(date +%s)  - ${START_TIME})"
           echo "github_actions_total_test_duration $(expr $(date +%s) - ${START_TIME})" | curl --data-binary @- ${{ secrets.PUSHGATEWAY_URL }}/metrics/job/github_actions
           ./test_results_script.sh
-          
+          buildevents step $TRACE_ID $STEP_ID $STEP_START $STEP_ID
