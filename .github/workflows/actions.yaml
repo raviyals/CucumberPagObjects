@@ -38,5 +38,6 @@ jobs:
         if: always()
         run: |
           echo "TOTAL_TEST_DURATION=$(expr $(date +%s)  - ${START_TIME})s"
+          echo "github_actions_total_test_duration $(expr $(date +%s)-${START_TIME})" | curl --data-binary @- ${{ secrets.PUSHGATEWAY_URL }}/metrics/job/github_actions
           ./test_results_script.sh
           
