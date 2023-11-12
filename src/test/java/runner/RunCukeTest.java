@@ -37,7 +37,7 @@ public class RunCukeTest extends AbstractTestNGCucumberTests{
 		ExtentCucumberFormatter.loadConfig(new File("src/test/resources/extent-config.xml"));
 
 		//User can add the system information as follows
-		ExtentCucumberFormatter.addSystemInfo("Browser Name", "FireFox");
+		ExtentCucumberFormatter.addSystemInfo("Browser Name", "Chrome");
 		ExtentCucumberFormatter.addSystemInfo("Browser Version", "v119.0.1");
 		ExtentCucumberFormatter.addSystemInfo("Selenium Version", "v3.149.59");
 	
