@@ -12,6 +12,12 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Build event data
+        uses: kvrhdn/gha-buildevents@v1
+        with:
+          apiKey: ${{ secrets.BUILDEVENTS_APIKEY }}
+          dataset: CucumberPagObjects-build-pipeline
+          job-status: ${{ job.status }}
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Install Node 16
